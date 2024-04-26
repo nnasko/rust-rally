@@ -1,37 +1,36 @@
 // components/Navbar.tsx
 import { Button, Navbar, NavbarBrand, NavbarContent, NavbarItem, NavbarMenuItem, Spacer } from '@nextui-org/react';
 import Link from 'next/link';
+import Logo from './Logo';
 
 const Navigationbar = () => {
   return (
-    <Navbar>
+    <Navbar className='bg-foreground'>
       <NavbarBrand>
-        <p className="font-bold text-inherit">RUSTRALLY</p>
+        <Logo h={50} w={50} />
+        <p className="font-bold text-xs">RUSTRALLY</p>
       </NavbarBrand>
-      <NavbarContent className="hidden sm:flex gap-4" justify="center">
+      <NavbarContent className="hidden sm:flex gap-16" justify="center">
         <NavbarItem>
           <Link color="foreground" href="#">
-            Features
+            INFO
           </Link>
         </NavbarItem>
         <NavbarItem isActive>
-          <Link href="#" aria-current="page">
-            Customers
+          <Link href="posts" aria-current="page">
+            POSTS
           </Link>
         </NavbarItem>
         <NavbarItem>
           <Link color="foreground" href="#">
-            Integrations
+            CONTACT US
           </Link>
         </NavbarItem>
       </NavbarContent>
       <NavbarContent justify="end">
-        <NavbarItem className="hidden lg:flex">
-          <Link href="#">Login</Link>
-        </NavbarItem>
         <NavbarItem>
-          <Button as={Link} color="primary" href="#" variant="flat">
-            Sign Up
+          <Button as={Link} color="primary" href="login" variant="flat" className='rounded-xl'>
+            Login
           </Button>
         </NavbarItem>
       </NavbarContent>
