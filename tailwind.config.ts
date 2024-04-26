@@ -27,15 +27,19 @@ const config: Config = {
           colors: {},
         },
         dark: {
-          colors: {},
+          colors: {
+            primary: "#1e2020",
+            secondary: "#f6eae0",
+          },
         },
         rust: {
           colors: {
             background: "#1e2020",
             foreground: "#ce422b",
+            secondary: "#f6eae0",
             primary: {
-              foreground: "#FFFFFF",
-              DEFAULT: "#f6eae0",
+              foreground: "#ffffff",
+              DEFAULT: "#1e2020",
             }
           },
         },

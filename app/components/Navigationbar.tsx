@@ -1,5 +1,5 @@
 // components/Navbar.tsx
-import { Button, Navbar, NavbarBrand, NavbarContent, NavbarItem, NavbarMenuItem, Spacer } from '@nextui-org/react';
+import { Button, Navbar, NavbarBrand, NavbarContent, NavbarItem } from '@nextui-org/react';
 import Link from 'next/link';
 import Logo from './Logo';
 
@@ -12,24 +12,24 @@ const Navigationbar = () => {
       </NavbarBrand>
       <NavbarContent className="hidden sm:flex gap-16" justify="center">
         <NavbarItem>
-          <Link color="foreground" href="#">
+          <Link color="foreground" href="/info">
             INFO
           </Link>
         </NavbarItem>
         <NavbarItem isActive>
-          <Link href="posts" aria-current="page">
+          <Link href="/posts" aria-current="page">
             POSTS
           </Link>
         </NavbarItem>
         <NavbarItem>
-          <Link color="foreground" href="#">
+          <Link color="foreground" href="/contact">
             CONTACT US
           </Link>
         </NavbarItem>
       </NavbarContent>
       <NavbarContent justify="end">
         <NavbarItem>
-          <Button as={Link} color="primary" href="login" variant="flat" className='rounded-xl'>
+          <Button as={Link} color='secondary' variant="flat" className='rounded-lg' href='/auth/register'>
             Login
           </Button>
         </NavbarItem>
