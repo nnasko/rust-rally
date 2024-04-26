@@ -5,7 +5,7 @@ import Logo from './Logo';
 
 const Navigationbar = () => {
   return (
-    <Navbar className='bg-foreground'>
+    <Navbar className='bg-foreground border-b border-secondary'>
       <NavbarBrand>
         <Logo h={50} w={50} />
         <p className="font-bold text-xs">RUSTRALLY</p>

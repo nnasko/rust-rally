@@ -9,7 +9,7 @@ import {
   } from "@heroicons/react/20/solid";
 import { Button, Checkbox, Input, Link } from '@nextui-org/react'
 import { z } from "zod";
-import { SubmitHandler, useForm } from "react-hook-form";
+import { Controller, SubmitHandler, useForm } from "react-hook-form";
 import validator from "validator"
 import React, { useState } from 'react'
 
@@ -45,7 +45,7 @@ const FormSchema = z
 type InputType = z.infer<typeof FormSchema>;
 
 const RegisterForm = () => {
-    const {register, handleSubmit,reset} = useForm<InputType>();
+    const {register, handleSubmit,reset, control} = useForm<InputType>();
     const [isVisiblePass, setIsVisiblePass] = useState(false);
     const toggleVisiblePass = ()=>setIsVisiblePass(prev=>!prev);
 
@@ -54,7 +54,7 @@ const RegisterForm = () => {
     }
 
   return (
-    <form onSubmit={handleSubmit(saveUser)} className='grid grid-cols-2 gap-3 p-4 shadow border bg-foreground rounded-md'>
+    <form onSubmit={handleSubmit(saveUser)} className='grid grid-cols-2 gap-3 p-4 shadow border border-secondary bg-foreground rounded-md'>
         <Input
         {...register("Username")}
         label="Username" 
@@ -90,9 +90,11 @@ const RegisterForm = () => {
         startContent={<KeyIcon className="w-4"/>} 
         className="dark col-span-1"
         />
-        <Checkbox {...register("accepted")} className="dark">
+        <Controller control={control} name="accepted" render={({field}) => (
+          <Checkbox onChange={field.onChange} onBlur={field.onBlur} className="dark">
             I accept the <Link className="" href="/terms">Terms</Link>. 
-        </Checkbox>
+          </Checkbox>
+    )} />
     <Button 
     type="submit" 
     color="primary"
