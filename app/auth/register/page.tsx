@@ -8,7 +8,7 @@ const RegisterPage = () => {
     <div className="grid grid-cols-1 place-items-center items-center gap-3 bg-background">
       <div className="md:col-span-2 flex justify-center items-center">
         <p className="text-center p-2">Already Signed up?</p>
-        <Link href={"/auth/login"} color='secondary'>LogIn</Link>
+        <Link href={"/auth/login"} color='foreground'>LogIn</Link>
       </div>
         <RegisterForm />
     </div>
