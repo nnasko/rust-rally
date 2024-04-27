@@ -32,8 +32,6 @@ export const authOptions : AuthOptions ={
         
                 if (!user) throw new Error("User name or password is not correct");
         
-                // This is Naive Way of Comparing The Passwords
-                // const isPassowrdCorrect = credentials?.password === user.password;
                 if (!credentials?.password) 
                     throw new Error("Please Provide Your Password");
                 const isPassowrdCorrect = await bcrypt.compare(

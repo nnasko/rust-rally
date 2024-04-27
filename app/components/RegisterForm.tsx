@@ -11,12 +11,16 @@ import { Button, Checkbox, Input, Link } from '@nextui-org/react'
 import { z } from "zod";
 import { Controller, SubmitHandler, useForm } from "react-hook-form";
 import validator from "validator"
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { zodResolver } from "@hookform/resolvers/zod";
+import { passwordStrength } from "check-password-strength";
+import PasswordStrength from "./passwordStrength";
+import { registerUser } from "@/lib/actions/authActions";
+import { toast } from "react-toastify";
 
 const FormSchema = z
     .object({
-        Username: z
+        name: z
         .string()
         .min(3,"Username must be atleast 3 characters")
         .max(20,"Username must be less than 20 characters"),
@@ -46,23 +50,36 @@ const FormSchema = z
 type InputType = z.infer<typeof FormSchema>;
 
 const RegisterForm = () => {
-    const {register, handleSubmit,reset, control, formState:{errors} } = useForm<InputType>({
+    const {register, handleSubmit,reset, control, watch, formState:{errors} } = useForm<InputType>({
       resolver:zodResolver(FormSchema),
     });
+    const [passStrength, setPassStrength] = useState(0);
     const [isVisiblePass, setIsVisiblePass] = useState(false);
+
+    useEffect(()=> {
+
+    setPassStrength(passwordStrength(watch().password).id);
+    }, [watch().password]);
     const toggleVisiblePass = ()=>setIsVisiblePass(prev=>!prev);
 
-    const saveUser: SubmitHandler<InputType> = async (data)=>{
-        console.log({data});
-    }
+    const saveUser: SubmitHandler<InputType> = async (data) => {
+        const { accepted, confirmPassword, ...user } = data;
+        try {
+          const result = await registerUser(user);
+          toast.success("The User Registered Successfully.");
+        } catch (error) {
+          toast.error("Something Went Wrong!");
+          console.error(error);
+        }
+    };
 
   return (
     <form onSubmit={handleSubmit(saveUser)} className='grid grid-cols-2 gap-3 p-4 shadow border border-secondary bg-foreground rounded-md'>
         <Input
-        errorMessage={errors.Username?.message}
-        isInvalid={!!errors.Username}
-        {...register("Username")}
-        label="Username" 
+        errorMessage={errors.name?.message}
+        isInvalid={!!errors.name}
+        {...register("name")}
+        label="name" 
         startContent={<UserIcon className="w-4"/>} 
         className="dark col-span-2 rounded-xl" 
         />
@@ -103,6 +120,7 @@ const RegisterForm = () => {
         startContent={<KeyIcon className="w-4"/>} 
         className="dark col-span-1"
         />
+        <PasswordStrength passStrength={passStrength} />
         <Controller control={control} name="accepted" render={({field}) => (
           <Checkbox onChange={field.onChange} onBlur={field.onBlur} className="dark">
             I accept the <Link className="" href="/terms">Terms</Link>. 
