@@ -9,7 +9,9 @@ const Navigationbar = () => {
     <Navbar className='bg-foreground border-b border-secondary'>
       <NavbarBrand>
         <Logo h={50} w={50} />
+        <Link href="/">
         <p className="font-bold text-xs">RUSTRALLY</p>
+        </Link>
       </NavbarBrand>
       <NavbarContent className="hidden sm:flex gap-16" justify="center">
         <NavbarItem>

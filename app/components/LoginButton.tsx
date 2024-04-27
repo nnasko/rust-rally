@@ -14,7 +14,7 @@ const LoginButton = () => {
         <p>{session.user.name}</p>
         <Link className="text-secondary" href={"/api/auth/signout"}>Sign Out</Link>
         </>
-         : <Button as={Link} href={"/api/auth/signin"}>
+         : <Button as={Link} href={"/api/auth/signin"} variant='light' className='rounded-lg text-secondary'>
             Login
             </Button>
         }
