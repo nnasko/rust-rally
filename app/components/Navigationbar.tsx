@@ -2,6 +2,7 @@
 import { Button, Navbar, NavbarBrand, NavbarContent, NavbarItem } from '@nextui-org/react';
 import Link from 'next/link';
 import Logo from './Logo';
+import LoginButton from './LoginButton';
 
 const Navigationbar = () => {
   return (
@@ -29,9 +30,7 @@ const Navigationbar = () => {
       </NavbarContent>
       <NavbarContent justify="end">
         <NavbarItem>
-          <Button as={Link} color='secondary' variant="flat" className='rounded-lg' href='/auth/register'>
-            Login
-          </Button>
+          <LoginButton />
         </NavbarItem>
       </NavbarContent>
     </Navbar>

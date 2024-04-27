@@ -70,7 +70,7 @@ const RegisterForm = () => {
         } catch (error) {
           toast.error("Something Went Wrong!");
           console.error(error);
-        }
+        } 
     };
 
   return (
