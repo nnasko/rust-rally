@@ -28,8 +28,20 @@ const config: Config = {
         },
         dark: {
           colors: {
-            primary: "#1e2020",
+            primary: {
+              foreground: "#ffffff",
+              DEFAULT: "#1e2020",
+            },
             secondary: "#f6eae0",
+            background: "#1e2020",
+            danger: {
+              foreground: "#ffffff",
+              background: "#1e2020",
+              DEFAULT: "#ffffff",
+              50: "#1b1e1e",
+              100: "#2d3131",
+            },
+            focus: "#f86249",
           },
         },
         rust: {
@@ -37,6 +49,7 @@ const config: Config = {
             background: "#1e2020",
             foreground: "#ce422b",
             secondary: "#f6eae0",
+            danger: "#f6eae0",
             primary: {
               foreground: "#ffffff",
               DEFAULT: "#1e2020",

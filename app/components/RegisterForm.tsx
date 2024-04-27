@@ -12,6 +12,7 @@ import { z } from "zod";
 import { Controller, SubmitHandler, useForm } from "react-hook-form";
 import validator from "validator"
 import React, { useState } from 'react'
+import { zodResolver } from "@hookform/resolvers/zod";
 
 const FormSchema = z
     .object({
@@ -28,24 +29,24 @@ const FormSchema = z
         .min(6, "Password must be at least 6 characters ")
         .max(50, "Password must be less than 50 characters"),
         confirmPassword: z
-        .string()
-        .min(6, "Password must be at least 6 characters ")
-        .max(50, "Password must be less than 50 characters"),
+        .string(),
         accepted: z.literal(true, {
             errorMap: () => ({
-              message: "Please accept all terms",
-            }),
+              message: "Please accept the terms",
+            })
           }),
         })
         .refine((data) => data.password === data.confirmPassword, {
-          message: "Password and confirm password doesn't match!",
+          message: "Passwords don't match!",
           path: ["confirmPassword"],
         });
 
 type InputType = z.infer<typeof FormSchema>;
 
 const RegisterForm = () => {
-    const {register, handleSubmit,reset, control} = useForm<InputType>();
+    const {register, handleSubmit,reset, control, formState:{errors} } = useForm<InputType>({
+      resolver:zodResolver(FormSchema),
+    });
     const [isVisiblePass, setIsVisiblePass] = useState(false);
     const toggleVisiblePass = ()=>setIsVisiblePass(prev=>!prev);
 
@@ -56,24 +57,32 @@ const RegisterForm = () => {
   return (
     <form onSubmit={handleSubmit(saveUser)} className='grid grid-cols-2 gap-3 p-4 shadow border border-secondary bg-foreground rounded-md'>
         <Input
+        errorMessage={errors.Username?.message}
+        isInvalid={!!errors.Username}
         {...register("Username")}
         label="Username" 
         startContent={<UserIcon className="w-4"/>} 
-        className="dark col-span-2" 
+        className="dark col-span-2 rounded-xl" 
         />
         <Input
+        errorMessage={errors.email?.message}
+        isInvalid={!!errors.email}
         {...register("email")}
         label="Email" 
         startContent={<EnvelopeIcon className="w-4"/>} 
         className="dark col-span-1" 
         />
-        <Input 
+        <Input
+        errorMessage={errors.phone?.message}
+        isInvalid={!!errors.phone}
         {...register("phone")}
         label="Phone" 
         startContent={<PhoneIcon className="w-4"/>} 
         className="dark col-span-1" 
         />
         <Input 
+        errorMessage={errors.password?.message}
+        isInvalid={!!errors.password}
         {...register("password")}
         label="Password" 
         type={isVisiblePass?"text" : "password"}
@@ -84,6 +93,8 @@ const RegisterForm = () => {
         : <EyeIcon className="w-4 cursor-pointer" onClick={toggleVisiblePass} />}
         />
         <Input 
+        errorMessage={errors.confirmPassword?.message}
+        isInvalid={!!errors.confirmPassword}
         {...register("confirmPassword")}
         label="Confirm Password" 
         type={isVisiblePass?"text" : "password"}
@@ -95,10 +106,13 @@ const RegisterForm = () => {
             I accept the <Link className="" href="/terms">Terms</Link>. 
           </Checkbox>
     )} />
+      {!!errors.accepted && (
+        <p className="text-white text-xs">{errors.accepted.message}</p>
+      )}
     <Button 
     type="submit" 
     color="primary"
-    className="rounded-lg dark"
+    className="rounded-lg dark col-span-2 items-center flex justify-center"
     >
         Submit
     </Button>
