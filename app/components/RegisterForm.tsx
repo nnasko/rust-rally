@@ -29,17 +29,19 @@ const FormSchema = z
         .min(6, "Password must be at least 6 characters ")
         .max(50, "Password must be less than 50 characters"),
         confirmPassword: z
-        .string(),
+        .string()
+        .min(6, "Password must be at least 6 characters ")
+        .max(50, "Password must be less than 50 characters"),
         accepted: z.literal(true, {
-            errorMap: () => ({
-              message: "Please accept the terms",
-            })
+          errorMap: () => ({
+            message: "Please accept the terms",
           }),
-        })
-        .refine((data) => data.password === data.confirmPassword, {
-          message: "Passwords don't match!",
-          path: ["confirmPassword"],
-        });
+        }),
+      })
+      .refine((data) => data.password === data.confirmPassword, {
+        message: "Passwords dont match!",
+        path: ["confirmPassword"],
+      });
 
 type InputType = z.infer<typeof FormSchema>;
 
