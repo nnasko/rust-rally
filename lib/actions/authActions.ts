@@ -14,10 +14,3 @@ export async function registerUser(user: Omit<User, "id" | "emailVerified" | "im
     return result;
 }
 
-export async function updateUser(userId: string, userData: Partial<User>) {
-    const result = await prisma.user.update({
-        where: { id: userId },
-        data: userData,
-    });
-    return result;
-}

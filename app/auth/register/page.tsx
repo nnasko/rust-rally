@@ -1,5 +1,5 @@
 import RegisterForm from '@/app/components/RegisterForm'
-import { Image, Link } from '@nextui-org/react'
+import { Link } from '@nextui-org/react'
 import React from 'react'
 
 const RegisterPage = () => {
