@@ -51,7 +51,7 @@ function UserSettingsForm() {
       className='grid grid-cols-3 gap-3 p-4 shadow border border-secondary bg-foreground rounded-md'
       >
         <Avatar
-        className='p-8'
+        className='h-14 w-14'
         src={getValueOrDefault(session?.user?.image)}
         />
         <Input
