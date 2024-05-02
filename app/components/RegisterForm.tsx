@@ -59,7 +59,7 @@ const RegisterForm = () => {
     useEffect(()=> {
 
     setPassStrength(passwordStrength(watch().password).id);
-    }, [watch().password]);
+    }, [watch]);
     const toggleVisiblePass = ()=>setIsVisiblePass(prev=>!prev);
 
     const saveUser: SubmitHandler<InputType> = async (data) => {
