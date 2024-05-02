@@ -66,7 +66,7 @@ const RegisterForm = () => {
         const { accepted, confirmPassword, ...user } = data;
         try {
           const result = await registerUser(user);
-          toast.success("The User Registered Successfully.");
+          toast.success("Registered Successfully.");
         } catch (error) {
           toast.error("Something Went Wrong!");
           console.error(error);
@@ -79,7 +79,7 @@ const RegisterForm = () => {
         errorMessage={errors.name?.message}
         isInvalid={!!errors.name}
         {...register("name")}
-        label="name" 
+        label="Name" 
         startContent={<UserIcon className="w-4"/>} 
         className="dark col-span-2 rounded-xl" 
         />
