@@ -38,15 +38,30 @@ model Session {
 }
  
 model User {
-  id            String    @id @default(cuid())
-  name          String
-  password      String
-  email         String   @unique
-  emailVerified DateTime?
-  phone         String
-  image         String?
-  accounts      Account[]
-  sessions      Session[]
+  id              String    @id @default(cuid())
+  name            String
+  password        String
+  email           String   @unique
+  emailVerified   DateTime?
+  phone           String
+  image           String?
+  discord         String?
+  steam           String?
+  languages       String?
+  region          String?
+  age             Int?
+  posts           Post[]
+  accounts        Account[]
+  sessions        Session[]
+}
+
+model Post {
+  id          Int      @id @default(autoincrement())
+  title       String
+  description String
+  author      User     @relation(fields: [authorId], references: [id])
+  authorId    String
+  createdAt   DateTime @default(now())
 }
  
 model VerificationToken {

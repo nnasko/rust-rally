@@ -1,0 +1,16 @@
+-- AlterTable
+ALTER TABLE "User" ADD COLUMN "age" INTEGER;
+ALTER TABLE "User" ADD COLUMN "discord" TEXT;
+ALTER TABLE "User" ADD COLUMN "languages" TEXT;
+ALTER TABLE "User" ADD COLUMN "region" TEXT;
+ALTER TABLE "User" ADD COLUMN "steam" TEXT;
+
+-- CreateTable
+CREATE TABLE "Post" (
+    "id" INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+    "title" TEXT NOT NULL,
+    "description" TEXT NOT NULL,
+    "authorId" TEXT NOT NULL,
+    "createdAt" DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    CONSTRAINT "Post_authorId_fkey" FOREIGN KEY ("authorId") REFERENCES "User" ("id") ON DELETE RESTRICT ON UPDATE CASCADE
+);

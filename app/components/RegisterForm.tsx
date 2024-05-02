@@ -79,7 +79,7 @@ const RegisterForm = () => {
         errorMessage={errors.name?.message}
         isInvalid={!!errors.name}
         {...register("name")}
-        label="Name" 
+        label="name" 
         startContent={<UserIcon className="w-4"/>} 
         className="dark col-span-2 rounded-xl" 
         />
