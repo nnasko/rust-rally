@@ -14,7 +14,7 @@ const LoginButton = () => {
         {session && session.user ?
         <>
         <p>{session.user.name}</p>
-        <Popover showArrow placement='bottom' className='dark p6 gap-4'>
+        <Popover backdrop='opaque' showArrow placement='bottom' className='dark p6 gap-4'>
         <PopoverTrigger>
         <ArrowDownIcon className='h-5 text-background' />
       </PopoverTrigger>
