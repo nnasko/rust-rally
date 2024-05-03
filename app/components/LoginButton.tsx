@@ -22,7 +22,7 @@ const LoginButton = () => {
       </PopoverTrigger>
         <PopoverContent className='gap-2 p-4 bg-primary'>
           <Button as={Link} href='/account'>Account Settings</Button>
-          <Button onClick={async () => await signOut()} className="text-secondary">Sign Out</Button>
+          <Button onClick={async () => await signOut({ redirect: true })} className="text-secondary">Sign Out</Button>
         </PopoverContent>
         </Popover>
         </>

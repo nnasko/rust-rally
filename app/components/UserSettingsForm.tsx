@@ -1,15 +1,18 @@
 "use client"
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Avatar, Button, Dropdown, DropdownItem, DropdownMenu, DropdownTrigger, Input } from '@nextui-org/react';
 import AsiaIcon from './AsiaIcon';
 import EuropeIcon from './EuropeIcon';
 import AmericasIcon from './AmericasIcon';
-import { signIn, useSession } from 'next-auth/react';
+import { signIn, useSession, getSession } from 'next-auth/react';
 import { useForm, SubmitHandler } from "react-hook-form";
 import { toast } from 'react-toastify';
 import { updateUser } from '@/lib/actions/authActions';
 function UserSettingsForm() {
-  const { data: session, status, update } = useSession();
+  const { data: session, status  } = useSession({ 
+    required: true,
+  });
+
   const [formData, setFormData] = useState({
     name: session?.user?.name ?? '',
     age: session?.user?.age ?? NaN,
@@ -50,6 +53,13 @@ function UserSettingsForm() {
     setFormData((prevFormData) => ({
       ...prevFormData,
       [e.target.name]: e.target.value,
+    }));
+  };
+
+  const handleRegionChange = (region: string) => {
+    setFormData((prevFormData) => ({
+      ...prevFormData,
+      region,
     }));
   };
 
@@ -140,16 +150,19 @@ function UserSettingsForm() {
           <DropdownMenu className='p-3'>
             <DropdownItem
             startContent={<EuropeIcon h={12} w={20} />}
+            onClick={() => handleRegionChange('Europe')}
             >
               Europe
             </DropdownItem>
             <DropdownItem
             startContent={<AmericasIcon h={12} w={20} />}
+            onClick={() => handleRegionChange('Americas')}
             >
               Americas
             </DropdownItem>
             <DropdownItem
             startContent={<AsiaIcon h={12} w={20} />}
+            onClick={() => handleRegionChange('Asia')}
             >
               Asia
             </DropdownItem>

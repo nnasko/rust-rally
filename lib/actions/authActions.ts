@@ -20,6 +20,7 @@ export async function updateUser(userId: string, user: UpdateUserType) {
     where: { id: userId },
       data: {
         ...user,
+        region: user.region,
         discord: user.discord ? user.discord : undefined,  
         steam: user.steam ? user.steam : undefined,
         name: user.name ? user.name : undefined,
