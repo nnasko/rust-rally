@@ -5,10 +5,9 @@ import AsiaIcon from './AsiaIcon';
 import EuropeIcon from './EuropeIcon';
 import AmericasIcon from './AmericasIcon';
 import { useSession } from 'next-auth/react';
-import { Controller, SubmitHandler, useForm } from "react-hook-form";
+import { useForm, SubmitHandler } from "react-hook-form";
 import { toast } from 'react-toastify';
-import { registerUser } from '@/lib/actions/authActions';
-
+import { updateUser } from '@/lib/actions/authActions';
 function UserSettingsForm() {
   const { data: session, status } = useSession();
   const [formData, setFormData] = useState({
@@ -19,13 +18,25 @@ function UserSettingsForm() {
     steam: session?.user?.steam ?? '',
     region: session?.user?.region ?? '',
   });
+  
+  const { register, handleSubmit } = useForm();
 
-  const handleChange = (e: { target: { name: any; value: any; }; }) => {
-    const { name, value } = e.target;
-    setFormData((prevFormData) => ({
-      ...prevFormData,
-      [name]: value,
-    }));
+  type UpdateUserType = {
+    age?: number;
+    discord?: string;
+    steam?: string;
+    // ... other updatable fields
+  };
+
+  const saveUser: SubmitHandler<UpdateUserType> = async (data) => {
+    try {
+      const userId = getValueOrDefault(session?.user?.id);
+      const result = await updateUser(userId, data); 
+      toast.success("User information updated!");
+    } catch (error) {
+      toast.error("Error updating user information");
+      console.error(error);
+    }
   };
 
   const getValueOrDefault = (value: any) => value ?? 'Undefined';
@@ -47,7 +58,7 @@ function UserSettingsForm() {
 
   return (
       <form
-      
+      onSubmit={handleSubmit(saveUser)}
       className='grid grid-cols-3 gap-3 p-4 shadow border border-secondary bg-foreground rounded-md'
       >
         <Avatar
@@ -61,6 +72,7 @@ function UserSettingsForm() {
         disabled
         value={getValueOrDefault(session?.user?.name)} 
         className='dark col-span-1 rounded-xl'
+        {...register('name')}
         />
                 <Input
         color='default'

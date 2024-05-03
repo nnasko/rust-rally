@@ -11,3 +11,9 @@ declare module "next-auth/jwt"{
         user:User;
     }
 }
+export type UpdateUserType = {
+    age?: number;
+    discord?: string;
+    steam?: string;
+    region?: string;
+  };
