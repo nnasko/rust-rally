@@ -9,11 +9,12 @@ import React from 'react'
 
 const LoginButton = () => {
     const { data:session } = useSession();
+    const getValueOrDefault = (value: any) => value ?? 'Undefined';
   return (
         <div className='flex items-center gap-2'>
         {session && session.user ?
         <>
-        <Avatar src={session?.user.image} />
+        <Avatar src={getValueOrDefault(session?.user?.image)} />
         <p>{session.user.name}</p>
         <Popover backdrop='opaque' showArrow placement='bottom' className='dark p6 gap-4'>
         <PopoverTrigger>
