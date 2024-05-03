@@ -23,15 +23,16 @@ function UserSettingsForm() {
 
   type UpdateUserType = {
     age?: number;
+    name?: string;
     discord?: string;
     steam?: string;
   };
   const saveUser: SubmitHandler<UpdateUserType> = async (data) => {
     try {
       const userId = getValueOrDefault(session?.user?.id);
-      const updateData = (data.discord !== '' || data.steam !== '') 
+      const updateData = (data.discord !== '' || data.steam !== '' || data.name !== '') 
       ? { ...data } 
-      : { ...data, discord: undefined, steam: undefined }; 
+      : { ...data, discord: undefined, steam: undefined, name: undefined, }; 
       const updatedUser = await updateUser(userId, {
         ...updateData,
         age: data.age ? parseInt(data.age, 10) : undefined

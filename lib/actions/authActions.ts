@@ -22,6 +22,7 @@ export async function updateUser(userId: string, user: UpdateUserType) {
         ...user,
         discord: user.discord ? user.discord : undefined,  
         steam: user.steam ? user.steam : undefined,
+        name: user.name ? user.name : undefined,
       },  // Update only the provided fields in user object
     });
     return updatedUser;

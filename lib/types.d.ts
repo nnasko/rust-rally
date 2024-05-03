@@ -13,6 +13,7 @@ declare module "next-auth/jwt"{
 }
 export type UpdateUserType = {
     age?: number;
+    name?: string;
     discord?: string;
     steam?: string;
     region?: string;
