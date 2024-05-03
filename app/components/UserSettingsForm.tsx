@@ -4,15 +4,15 @@ import { Avatar, Button, Dropdown, DropdownItem, DropdownMenu, DropdownTrigger, 
 import AsiaIcon from './AsiaIcon';
 import EuropeIcon from './EuropeIcon';
 import AmericasIcon from './AmericasIcon';
-import { useSession } from 'next-auth/react';
+import { signIn, useSession } from 'next-auth/react';
 import { useForm, SubmitHandler } from "react-hook-form";
 import { toast } from 'react-toastify';
 import { updateUser } from '@/lib/actions/authActions';
 function UserSettingsForm() {
-  const { data: session, status } = useSession();
+  const { data: session, status, update } = useSession();
   const [formData, setFormData] = useState({
     name: session?.user?.name ?? '',
-    age: session?.user?.age ?? '',
+    age: session?.user?.age ?? NaN,
     email: session?.user?.email ?? '',
     discord: session?.user?.discord ?? '',
     steam: session?.user?.steam ?? '',
@@ -25,13 +25,17 @@ function UserSettingsForm() {
     age?: number;
     discord?: string;
     steam?: string;
-    // ... other updatable fields
   };
-
   const saveUser: SubmitHandler<UpdateUserType> = async (data) => {
     try {
       const userId = getValueOrDefault(session?.user?.id);
-      const result = await updateUser(userId, data); 
+      const updateData = (data.discord !== '' || data.steam !== '') 
+      ? { ...data } 
+      : { ...data, discord: undefined, steam: undefined }; 
+      const updatedUser = await updateUser(userId, {
+        ...updateData,
+        age: data.age ? parseInt(data.age, 10) : undefined
+      }); 
       toast.success("User information updated!");
     } catch (error) {
       toast.error("Error updating user information");
@@ -40,6 +44,13 @@ function UserSettingsForm() {
   };
 
   const getValueOrDefault = (value: any) => value ?? 'Undefined';
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setFormData((prevFormData) => ({
+      ...prevFormData,
+      [e.target.name]: e.target.value,
+    }));
+  };
 
   const getRegionIcon = () => {
     const region = session?.user?.region;
@@ -69,41 +80,48 @@ function UserSettingsForm() {
         color='default'
         label="Username"
         type="text"
-        disabled
-        value={getValueOrDefault(session?.user?.name)} 
+        placeholder={getValueOrDefault(session?.user?.name)} 
         className='dark col-span-1 rounded-xl'
         {...register('name')}
         />
-                <Input
+        <Input
         color='default'
         label="Age"
-        type="text"
-        value={getValueOrDefault(session?.user?.age)}
+        type="number"
+        placeholder={getValueOrDefault(session?.user?.age)}
         className='dark col-span-1 rounded-xl'
+        {...register('age')}
+        onChange={handleChange}
         />
         <Input
         color='default'
         label="Email"
         type="text"
         disabled
-        value={session?.user.email}
+        placeholder={session?.user.email}
         className='dark col-span-3 rounded-xl'
+        {...register('email')}
+        onChange={handleChange}
         />
         <Input
         label="Discord"
         variant='flat'
         color='default'
         type="text"
-        value={getValueOrDefault(session?.user?.discord)}
+        placeholder={getValueOrDefault(session?.user?.discord)}
         className='dark col-span-1 rounded-xl'
+        {...register('discord')}
+        onChange={handleChange}
         />
         <Input
         label="Steam"
         variant='flat'
         color='default'
         type="text"
-        value={getValueOrDefault(session?.user?.steam)}
+        placeholder={getValueOrDefault(session?.user?.steam)}
         className='dark col-span-1 rounded-xl'
+        {...register('steam')}
+        onChange={handleChange}
         />
         <Dropdown className='dark'>
         <DropdownTrigger>

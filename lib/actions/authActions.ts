@@ -1,3 +1,4 @@
+"use server"
 // authActions.ts
 import { User } from "@prisma/client";
 import prisma from "../prisma";
@@ -17,7 +18,11 @@ export async function registerUser(user: Omit<User, "id" | "emailVerified" | "im
 export async function updateUser(userId: string, user: UpdateUserType) {
     const updatedUser = await prisma.user.update({
     where: { id: userId },
-      data: user,  // Update only the provided fields in user object
+      data: {
+        ...user,
+        discord: user.discord ? user.discord : undefined,  
+        steam: user.steam ? user.steam : undefined,
+      },  // Update only the provided fields in user object
     });
     return updatedUser;
   }
