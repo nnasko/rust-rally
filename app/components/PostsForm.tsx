@@ -36,11 +36,11 @@ const PostsForm = () => {
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} className='m-6 bg-foreground border-2 p-4 h-min rounded-lg'>
-      <div className='dark'>
+      <div className='dark pt-2'>
       <Textarea label="Description" id="description" {...register('description', { required: true })} />
       {errors.description && <p className="text-sm p-2">Description is required.</p>} 
 
-      <Button type="submit" disabled={submitting}>
+      <Button type="submit" disabled={submitting} className='mt-2'>
         {submitting ? 'Submitting...' : 'Create Post'}
       </Button>
       </div>
