@@ -29,13 +29,14 @@ function UserSettingsForm() {
     name?: string;
     discord?: string;
     steam?: string;
+    region?: string;
   };
   const saveUser: SubmitHandler<UpdateUserType> = async (data) => {
     try {
       const userId = getValueOrDefault(session?.user?.id);
-      const updateData = (data.discord !== '' || data.steam !== '' || data.name !== '') 
+      const updateData = (data.discord !== '' || data.steam !== '' || data.name !== '' || data.region !== '') 
       ? { ...data } 
-      : { ...data, discord: undefined, steam: undefined, name: undefined, }; 
+      : { ...data, discord: undefined, steam: undefined, name: undefined, region: undefined, }; 
       const updatedUser = await updateUser(userId, {
         ...updateData,
         age: data.age ? parseInt(data.age, 10) : undefined
