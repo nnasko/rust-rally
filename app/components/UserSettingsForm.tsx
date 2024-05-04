@@ -12,6 +12,7 @@ function UserSettingsForm() {
   const { data: session, status  } = useSession({ 
     required: true,
   });
+  const [selectedRegion, setSelectedRegion] = useState(session?.user?.region ?? ''); 
 
   const [formData, setFormData] = useState({
     name: session?.user?.name ?? '',
@@ -57,12 +58,13 @@ function UserSettingsForm() {
     }));
   };
 
-  const handleRegionChange = (region: string) => {
+const handleRegionChange = (region: string) => {
+    setSelectedRegion(region); 
     setFormData((prevFormData) => ({
-      ...prevFormData,
-      region,
+        ...prevFormData,
+        region: region 
     }));
-  };
+};
 
   const getRegionIcon = () => {
     const region = session?.user?.region;

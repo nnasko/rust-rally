@@ -1,6 +1,6 @@
 "use server"
 // authActions.ts
-import { User } from "@prisma/client";
+import { Post, User } from "@prisma/client";
 import prisma from "../prisma";
 import * as bcrypt from "bcryptjs";
 import { UpdateUserType } from "../types";
@@ -28,3 +28,19 @@ export async function updateUser(userId: string, user: UpdateUserType) {
     });
     return updatedUser;
   }
+  
+  export async function createPost(postData: any) {
+    const createdPost = await prisma.post.create({
+        data: postData,
+    });
+    return createdPost;
+}
+
+export async function fetchPosts(): Promise<Post[]> { 
+  const posts = await prisma.post.findMany({
+    include: {
+      author: true 
+    }
+  });
+  return posts;
+}

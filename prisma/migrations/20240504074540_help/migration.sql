@@ -1,0 +1,5 @@
+-- AlterTable
+ALTER TABLE "Post" ADD COLUMN "age" INTEGER;
+ALTER TABLE "Post" ADD COLUMN "discord" TEXT;
+ALTER TABLE "Post" ADD COLUMN "region" TEXT;
+ALTER TABLE "Post" ADD COLUMN "steam" TEXT;

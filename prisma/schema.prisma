@@ -61,6 +61,10 @@ model Post {
   description String
   author      User     @relation(fields: [authorId], references: [id])
   authorId    String
+  age      Int?  
+  region   String?  
+  discord  String?  
+  steam    String?  
   createdAt   DateTime @default(now())
 }
  
