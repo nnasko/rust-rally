@@ -10,7 +10,6 @@ const page = () => {
   return (
     <div className='h-screen bg-background grid grid-cols-3 gap-4'>
       <div className='col-span-1'>
-        <p className='pt-4 pl-4'>Create a Post</p>
         <Spacer className='h-2 w-16'/>
         <PostsForm />
       </div>
