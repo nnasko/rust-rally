@@ -40,6 +40,7 @@ function UserSettingsForm() {
       : { ...data, discord: undefined, steam: undefined, name: undefined, region: undefined, }; 
       const updatedUser = await updateUser(userId, {
         ...updateData,
+        region: selectedRegion,
         age: data.age ? parseInt(data.age, 10) : undefined
       }); 
       toast.success("User information updated!");
@@ -58,12 +59,14 @@ function UserSettingsForm() {
     }));
   };
 
-const handleRegionChange = (region: string) => {
+  const handleRegionChange = (region: string) => {
     setSelectedRegion(region); 
     setFormData((prevFormData) => ({
         ...prevFormData,
         region: region 
     }));
+    console.log("Selected Region:", region);
+    console.log("Form Data:", formData);
 };
 
   const getRegionIcon = () => {
