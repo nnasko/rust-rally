@@ -11,11 +11,17 @@ const PostsForm = () => {
         required: true,
       });
   const { register, handleSubmit, formState: { errors } } = useForm();
-
   const [submitting, setSubmitting] = useState(false);
+  const [description, setDescription] = useState('');
+  const maxDescriptionLength = 500;
+
+  const handleDescriptionChange = (event: { target: { value: string; }; }) => {
+    setDescription(event.target.value.substring(0, maxDescriptionLength)); 
+  };
+
 
   const onSubmit = async (data: any) => {
-    setSubmitting(true);  
+    setSubmitting(true);
     try {
       await createPost({
         ...data,
@@ -37,9 +43,18 @@ const PostsForm = () => {
       <div className='dark'>
       <p className='pb-2 text-lg font-bold'>Create a Post</p>
       <Spacer className='w-16 bg-secondary mb-4'/>
-      <Textarea label="Description" id="description" {...register('description', { required: true })} />
-      {errors.description && <p className="text-sm p-2">Description is required.</p>} 
-
+      <Textarea
+        label="Description"
+        id="description"
+        {...register('description', { required: true })}
+        onChange={handleDescriptionChange} // Add this event handler
+        value={description} // Bind to state 
+        isRequired
+      />
+     {/* Show remaining characters */}
+     <p className="text-xs flex-row items-end">
+       {description.length}/{maxDescriptionLength}
+     </p>
       <Button type="submit" disabled={submitting} className='mt-2'>
         {submitting ? 'Submitting...' : 'Create Post'}
       </Button>

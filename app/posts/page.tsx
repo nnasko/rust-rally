@@ -8,7 +8,7 @@ import {  Spacer } from '@nextui-org/react';
 const page = () => {
     const [posts, setPosts] = useState([]);
   return (
-    <div className='h-screen bg-background grid grid-cols-3 gap-4'>
+    <div className='min-h-screen bg-background grid grid-cols-3 gap-4'>
       <div className='col-span-1'>
         <Spacer className='h-2 w-16'/>
         <PostsForm />
