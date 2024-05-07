@@ -4,7 +4,6 @@ import Link from 'next/link';
 import EuropeIcon from './EuropeIcon';
 import AmericasIcon from './AmericasIcon';
 import AsiaIcon from './AsiaIcon';
-import { UrlObject } from 'url';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
 import { toast } from 'react-toastify';
 import dayjs from 'dayjs';
@@ -29,7 +28,7 @@ const PostsDisplay = ({ posts, setPosts, fetchPosts }) => {
         getPosts();  
       }, []); 
 
-      const handlePageChange = (page) => {
+      const handlePageChange = (page: React.SetStateAction<number>) => {
         setCurrentPage(page);
     };
 
@@ -60,10 +59,10 @@ const PostsDisplay = ({ posts, setPosts, fetchPosts }) => {
 
   return (
     <div className='p-4'>
-      {currentPosts.map((post: { id: React.Key | null | undefined; author: { name: string | number | bigint | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<React.ReactNode> | Promise<React.AwaitedReactNode> | null | undefined; image: string | undefined; age: string | number | bigint | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<React.ReactNode> | React.ReactPortal | Promise<React.AwaitedReactNode> | null | undefined; region: any; steam: string | UrlObject; discord: string | UrlObject; }; description: string | number | bigint | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<React.ReactNode> | React.ReactPortal | Promise<React.AwaitedReactNode> | null | undefined; }) =>(
+      {currentPosts.map((post: { id: React.Key | null | undefined; author: { name: string | number | bigint | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<React.ReactNode> | Promise<React.AwaitedReactNode> | null | undefined; image: string | undefined; age: string | number | bigint | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<React.ReactNode> | React.ReactPortal | Promise<React.AwaitedReactNode> | null | undefined; region: any; steam: string; discord: string; }; description: string | number | bigint | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<React.ReactNode> | React.ReactPortal | Promise<React.AwaitedReactNode> | null | undefined; }) =>(
         <Card shadow='lg' className="max-w-[400px] m-4 bg-foreground text-white rounded-2xl border-2 border-secondary" key={post.id}>
           <CardHeader className="flex items-center gap-3"> 
-              <Avatar alt={post.author.name} src={post.author.image} />
+              <Avatar alt="profile" src={post.author.image} />
 
               <div className="flex flex-col flex-1">
                   <p className='text-white text-lg font-normal'>{post.author.name}</p>
@@ -92,7 +91,7 @@ const PostsDisplay = ({ posts, setPosts, fetchPosts }) => {
               )}
           </div>
           </CardHeader>
-          <Divider className='text-white' />
+          <Divider className='text-white h-0.5 bg-secondary' />
           <CardBody>
             <p>{post.description}</p>
           </CardBody>
