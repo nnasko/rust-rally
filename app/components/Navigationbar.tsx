@@ -15,8 +15,8 @@ const Navigationbar = () => {
       </NavbarBrand>
       <NavbarContent className="hidden sm:flex gap-16" justify="center">
         <NavbarItem>
-          <Link color="foreground" href="/info">
-            INFO
+          <Link color="foreground" href="/">
+            HOME
           </Link>
         </NavbarItem>
         <NavbarItem isActive>

@@ -19,10 +19,7 @@ const PostsDisplay = ({ posts, setPosts, fetchPosts }) => {
     useEffect(() => {
         const getPosts = async () => {
           const fetchedPosts = await fetchPosts(); 
-      
-          // Add a console.log here:
-          console.log('Fetched Posts:', fetchedPosts);
-      
+          fetchedPosts.reverse(); 
           setPosts(fetchedPosts);
         };
         getPosts();  
