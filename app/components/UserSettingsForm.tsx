@@ -9,7 +9,7 @@ import { useForm, SubmitHandler } from "react-hook-form";
 import { toast } from 'react-toastify';
 import { updateUser } from '@/lib/actions/authActions';
 function UserSettingsForm() {
-  const { data: session, status  } = useSession({ 
+  const { data: session, update, status  } = useSession({ 
     required: true,
   });
   const [selectedRegion, setSelectedRegion] = useState(session?.user?.region ?? ''); 
@@ -42,8 +42,10 @@ function UserSettingsForm() {
         ...updateData,
         region: selectedRegion,
         age: data.age ? parseInt(data.age, 10) : undefined
-      }); 
+      });
       toast.success("User information updated!");
+      await getSession();
+      console.log(session)
     } catch (error) {
       toast.error("Error updating user information");
       console.error(error);
