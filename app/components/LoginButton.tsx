@@ -1,6 +1,6 @@
 
 "use client"
-import { ArrowDownCircleIcon, ArrowDownIcon } from '@heroicons/react/20/solid';
+import { ArrowDownCircleIcon } from '@heroicons/react/20/solid';
 import { Button } from '@nextui-org/button';
 import { Avatar, Popover, PopoverContent, PopoverTrigger } from '@nextui-org/react';
 import { signOut, useSession } from 'next-auth/react'
