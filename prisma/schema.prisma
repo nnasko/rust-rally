@@ -49,7 +49,7 @@ model User {
   steam           String?
   languages       String?
   region          String?
-  age             Int?
+  age             String?
   posts           Post[]
   accounts        Account[]
   sessions        Session[]

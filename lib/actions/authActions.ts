@@ -1,11 +1,11 @@
 "use server"
 // authActions.ts
-import { Post, User } from "@prisma/client";
+import { Post } from "@prisma/client";
 import prisma from "../prisma";
 import * as bcrypt from "bcryptjs";
 import { UpdateUserType } from "../types";
 
-export async function registerUser(user: Omit<User, "id" | "emailVerified" | "image" | "discord" | "steam" | "region" | "language">) {
+export async function registerUser(user: { name: string; email: string; phone: string; password: string; }) {
     const result = await prisma.user.create({
         data: {
             ...user,
@@ -24,6 +24,7 @@ export async function updateUser(userId: string, user: UpdateUserType) {
         discord: user.discord ? user.discord : undefined,  
         steam: user.steam ? user.steam : undefined,
         name: user.name ? user.name : undefined,
+        age: user.age ? user.age : undefined,
       },  // Update only the provided fields in user object
     });
     return updatedUser;

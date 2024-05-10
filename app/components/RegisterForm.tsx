@@ -50,7 +50,7 @@ const FormSchema = z
 type InputType = z.infer<typeof FormSchema>;
 
 const RegisterForm = () => {
-    const {register, handleSubmit,reset, control, watch, formState:{errors} } = useForm<InputType>({
+    const {register, handleSubmit, control, watch, formState:{errors} } = useForm<InputType>({
       resolver:zodResolver(FormSchema),
     });
     const [passStrength, setPassStrength] = useState(0);

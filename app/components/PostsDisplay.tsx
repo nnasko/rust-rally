@@ -8,19 +8,43 @@ import { CopyToClipboard } from 'react-copy-to-clipboard';
 import { toast } from 'react-toastify';
 import dayjs from 'dayjs';
 import relativeTime from 'dayjs/plugin/relativeTime';
+import { fetchPosts } from '@/lib/actions/authActions';
 
 
-const PostsDisplay = ({ posts, setPosts, fetchPosts }) => { 
+const PostsDisplay = () => { 
   const [currentPage, setCurrentPage] = useState(1);
   const [postsPerPage] = useState(5);
   const [discordCopied, setDiscordCopied] = useState(false);
   dayjs.extend(relativeTime);
+  const [posts, setPosts] = useState<Post[]>([]); 
+
+  interface Post {
+    id: number;
+    description: string;
+    authorId: string;
+    age: number | null;
+    region: string | null;
+    discord: string | null;
+    steam: string | null;
+    author: Author;
+    createdAt: Date;
+  }
+
+  interface Author {
+    name: string;
+    image: string; 
+    age: number | null;
+    region: string | null;
+    steam: string | null;
+    discord: string | null;
+    // Add any other relevant author properties here
+  }
 
     useEffect(() => {
         const getPosts = async () => {
           const fetchedPosts = await fetchPosts(); 
           fetchedPosts.reverse(); 
-          setPosts(fetchedPosts);
+          setPosts(fetchedPosts as Post[]);
         };
         getPosts();  
       }, []); 
@@ -56,7 +80,7 @@ const PostsDisplay = ({ posts, setPosts, fetchPosts }) => {
 
   return (
     <div className='p-4'>
-      {currentPosts.map((post: { id: React.Key | null | undefined; author: { name: string | number | bigint | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<React.ReactNode> | Promise<React.AwaitedReactNode> | null | undefined; image: string | undefined; age: string | number | bigint | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<React.ReactNode> | React.ReactPortal | Promise<React.AwaitedReactNode> | null | undefined; region: any; steam: string; discord: string; }; description: string | number | bigint | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<React.ReactNode> | React.ReactPortal | Promise<React.AwaitedReactNode> | null | undefined; }) =>(
+      {currentPosts.map((post) =>(
         <Card shadow='lg' className="max-w-[400px] m-4 bg-foreground text-white rounded-2xl border-2 border-secondary" key={post.id}>
           <CardHeader className="flex items-center gap-3"> 
               <Avatar alt="profile" src={post.author.image} />

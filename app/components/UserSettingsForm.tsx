@@ -41,7 +41,6 @@ function UserSettingsForm() {
       const updatedUser = await updateUser(userId, {
         ...updateData,
         region: selectedRegion,
-        age: data.age ? parseInt(data.age, 10) : undefined
       });
       toast.success("User information updated!");
       await getSession();
