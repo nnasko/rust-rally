@@ -1,7 +1,7 @@
 
 export default function Home() {
   return (
-    <main className="bg-background h-screen">
+    <main className="bg-background h-screen text-white">
       
     </main>
   );

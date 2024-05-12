@@ -4,7 +4,7 @@ import Nasko from '../components/Nasko'
 
 const page = () => {
   return (
-    <div className='h-screen bg-background items-start place-items-start pt-24 md:pt-32 md:pl-16 flex pr-8 pl-8 md:pr-16 gap-3'>
+    <div className='h-screen bg-background items-start place-items-start pt-24 md:pt-32 md:pl-16 flex pr-8 pl-8 md:pr-16 gap-3 text-white'>
     <div className="grid grid-cols-1 place-items-start items-left gap-3 bg-background">
         <Info />
     </div>
