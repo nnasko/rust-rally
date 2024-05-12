@@ -13,6 +13,7 @@
     "@hookform/resolvers": "^3.3.4",
     "@nextui-org/react": "^2.3.6",
     "@prisma/client": "^5.13.0",
+    "@vercel/postgres": "^0.8.0",
     "axios": "^1.6.8",
     "bcrypt": "^5.1.1",
     "bcryptjs": "^2.4.3",
