@@ -11,7 +11,7 @@ const LoginButton = () => {
     const { data:session } = useSession();
     const getValueOrDefault = (value: any) => value ?? 'Undefined';
   return (
-        <div className='flex items-center gap-2'>
+        <div className='flex items-center gap-2 text-white'>
         {session && session.user ?
         <>
         <Avatar src={getValueOrDefault(session?.user?.image)} />

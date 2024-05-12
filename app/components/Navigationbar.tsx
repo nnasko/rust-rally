@@ -6,7 +6,7 @@ import LoginButton from './LoginButton';
 
 const Navigationbar = () => {
   return (
-    <Navbar className='bg-foreground border-b border-secondary'>
+    <Navbar className='bg-foreground border-b border-secondary text-white'>
       <NavbarBrand className=''>
         <Logo h={50} w={50} />
         <Link href="/">
